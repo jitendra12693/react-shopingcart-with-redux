@@ -3,12 +3,6 @@ import formatCurrency from '../util';
 
 const Product = (props) => {
 
-    useEffect(() => {
-
-        console.log(props.products);
-
-    }, [])
-
     return (
         <div>
             <ul className="products">
