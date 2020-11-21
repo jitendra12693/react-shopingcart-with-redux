@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import Cart from './components/cart';
 import Filter from './components/filter';
@@ -14,6 +15,10 @@ function App() {
     setproducts(data.products);
   }, [])
 
+  useEffect(() => {
+    setCartItem(localStorage.getItem('cartItems') ? JSON.parse(localStorage.getItem('cartItems')) : []);
+  }, [localStorage.getItem('cartItems')])
+
   const addToCart = (product) => {
     const cartItems = cartItem.slice();
     let alreadyinCart = false;
@@ -27,6 +32,7 @@ function App() {
       cartItems.push({ ...product, count: 1 });
     }
     setCartItem(cartItems);
+    localStorage.setItem('cartItems', JSON.stringify(cartItems));
   }
 
   const sortProducts = (event) => {
@@ -45,6 +51,7 @@ function App() {
   const removeFromCart = (product) => {
     const cartItems = cartItem.slice();
     setCartItem(cartItems.filter(item => item._id !== product._id));
+    localStorage.setItem('cartItems', JSON.stringify(cartItems.filter(item => item._id !== product._id)));
   }
 
   const filterProducts = (event) => {
